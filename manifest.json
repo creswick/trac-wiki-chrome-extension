@@ -1,0 +1,17 @@
+{
+    "name": "Trac Wiki Edit Button",
+    "version": "0.1",
+    "description": "Add an edit action for Trac wiki pages to the URL bar",
+    "page_action": {
+        "default_icon": "trac_icon_16x16.png",
+        "default_title": "Edit page"
+    },
+    "background_page" : "background.html",
+    "permissions": ["tabs"],
+    "content_scripts": [
+        {
+            "matches": ["http://*/*","https://*/*"],
+            "js": ["contentscript.js"]
+        }
+    ]
+}

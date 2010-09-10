@@ -25,6 +25,54 @@ TracExtension.isWikiEditPage = function() {
     return false;
 };
 
+TracExtension.createButtonPanel = function(buttons) {
+    var buttonDiv = document.createElement('div');
+    var tracIcon = document.createElement("img");
+    tracIcon.src = chrome.extension.getURL("trac_icon_16x16.png");
+    tracIcon.style.paddingRight = "0.25em";
+    tracIcon.style.verticalAlign = "middle";
+    buttonDiv.appendChild(tracIcon);
+    buttonDiv.appendChild(document.createTextNode("Trac Wiki"));
+    buttonSpan = document.createElement("span");
+    buttonSpan.id = 'trac-extension-button-panel';
+    buttonSpan.style.paddingLeft = "0.5em";
+    buttonDiv.appendChild(buttonSpan);
+    function mkButton(b) {
+        var theButton = document.createElement('button');
+        var theIcon = document.createElement('img');
+        theIcon.src = chrome.extension.getURL(b.icon);
+        theIcon.style.paddingRight = "0.25em";
+        theIcon.style.verticalAlign = "middle";
+        theButton.appendChild(theIcon);
+        theButton.appendChild(document.createTextNode(b.label));
+        theButton.onclick = b.action;
+        buttonSpan.appendChild(theButton);
+    };
+    for (var i = 0; i < buttons.length; i++) {
+        mkButton(buttons[i]);
+    }
+    var sty = buttonDiv.style;
+    sty.position = "fixed";
+    sty.right = "10px";
+    sty.top = "0";
+    sty.padding = "2px;";
+    sty.border = "1px solid #ccc";
+    sty.background = "white";
+    document.body.appendChild(buttonDiv);
+};
+
+TracExtension.clickEditButton  =function (name) {
+    return (function() {
+        var e = document.getElementById('edit');
+        e[name].click();
+    });
+};
+
+TracExtension.goToEditPage = function () {
+    var new_url = document.location.href.replace(/[?#].*/, '') + '?action=edit';
+    document.location.href = new_url;
+};
+
 // The actions that can be performed on each kind of Trac page
 //
 // XXX: this only allows one action per page type, when there might
@@ -35,58 +83,33 @@ TracExtension.pageTypes = [
         name: 'view',
         title: 'Edit wiki page',
         detect: TracExtension.isWikiPage,
-        action: function () {
-            var new_url = document.location.href.replace(/[?#].*/, '') + '?action=edit';
-            document.location.href = new_url;
-        },
+        action: TracExtension.goToEditPage,
         init: function () {
+            TracExtension.createButtonPanel([
+                { action: TracExtension.goToEditPage,
+                  label: "Edit",
+                  icon: "page_white_edit.png"
+                }
+            ]);
         }
     },
     {
         name: 'edit',
         title: 'Submit changes',
         detect: TracExtension.isWikiEditPage,
-        action: function () {
-            var el = document.getElementById('edit');
-            el.submit();
-        },
+        action: TracExtension.clickEditButton('save'),
         init: function () {
-            var buttonDiv = document.createElement('div');
-            var tracIcon = document.createElement("img");
-            tracIcon.src = chrome.extension.getURL("trac_icon_16x16.png");
-            tracIcon.style.paddingRight = "0.25em";
-            tracIcon.style.verticalAlign = "middle";
-            buttonDiv.appendChild(tracIcon);
-            buttonDiv.appendChild(document.createTextNode("Trac Edit"));
-            buttonSpan = document.createElement("span");
-            buttonSpan.paddingLeft = "5em";
-            buttonDiv.appendChild(buttonSpan);
-            function mkButton(name, label, icon) {
-                var theButton = document.createElement('button');
-                var theIcon = document.createElement('img');
-                theIcon.src = chrome.extension.getURL(icon);
-                theIcon.style.paddingRight = "0.25em";
-                theIcon.style.verticalAlign = "middle";
-                theButton.appendChild(theIcon);
-                theButton.appendChild(document.createTextNode(label));
-                theButton.onclick = function() {
-                    var editForm = document.getElementById('edit');
-                    editForm[name].click();
-                };
-                buttonSpan.appendChild(theButton);
+            var b = function(name, label, icon) {
+                return { action: TracExtension.clickEditButton(name),
+                         label: label,
+                         icon: icon
+                       };
             };
-            mkButton('save', "Save", "page_save.png");
-            mkButton('preview', "Preview", "page_white_magnify.png");
-            mkButton('cancel', "Cancel", "cancel.png");
-
-            var sty = buttonDiv.style;
-            sty.position = "fixed";
-            sty.right = "10px";
-            sty.top = "0";
-            sty.padding = "2px;";
-            sty.border = "1px solid #ccc";
-            sty.background = "white";
-            document.body.appendChild(buttonDiv);
+            TracExtension.createButtonPanel([
+                b('save', 'Save', "page_save.png"),
+                b('preview', "Preview", "page_white_magnify.png"),
+                b('cancel', "Cancel", "cancel.png")
+            ]);
         }
     }
 ];

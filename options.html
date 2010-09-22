@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Trac Wiki Control Options</title>
+    <script type="text/javascript" src="common.js"></script>
+    <script type="text/javascript">
+      function setWikiChromePolicy() {
+          var el = document.getElementById('show-chrome');
+
+          // XXX: this should really just send a request to the
+          // background page to update the setting instead of
+          // communicating with the background page through the
+          // localStorage interface.
+          TracExtension.setChromePolicy(el.value);
+          chrome.extension.sendRequest('reload', function () {});
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Trac Wiki Control Extension Options</h1>
+    Show wiki title and navigation:
+    <select id="show-chrome" onchange="setWikiChromePolicy()">
+      <option value="always">Always</option>
+      <option value="no-controls">When extension controls are hidden</option>
+      <option value="never">Never</option>
+    </select>
+    <script type="text/javascript">
+      document.getElementById('show-chrome').value = TracExtension.globalState.showPolicy;
+    </script>
+  </body>
+</html>

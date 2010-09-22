@@ -4,7 +4,7 @@
     "description": "Add an edit action for Trac wiki pages to the URL bar",
     "page_action": {
         "default_icon": "trac_icon_16x16.png",
-        "default_title": "Edit page"
+        "default_title": "Show Trac Wiki Controls"
     },
     "background_page" : "background.html",
     "permissions": ["tabs"],
@@ -13,5 +13,6 @@
             "matches": ["http://*/*","https://*/*"],
             "js": ["contentscript.js"]
         }
-    ]
+    ],
+    "options_page":"options.html"
 }

@@ -1,4 +1,9 @@
 TracExtension = {};
+/**
+ * Accessor to see if the controlls are currently showing.
+ *
+ * @return {boolean} Whether the navigation controlls are showing.
+ */
 TracExtension.navShowing = function() {
   var st = TracExtension.globalState;
   switch (st.showPolicy) {
@@ -13,6 +18,12 @@ TracExtension.navShowing = function() {
       return true;
   }
 };
+
+/**
+ * @return {Object.<string,boolean>} An object with two boolean fields
+ *      indicating the visibility of the navigation controls and the
+ *      control panel.
+ */
 TracExtension.currentState = function() {
   return {
     navShowing: TracExtension.navShowing(),

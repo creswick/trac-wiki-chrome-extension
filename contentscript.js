@@ -1,9 +1,25 @@
 var TracExtension = {};
 
+
+/**
+ * Splits an attribute value string into individual values.  Splitting
+ * is done on spaces.
+ *
+ * @param {string} s The string to split into individual class names.
+ * @return {Array.<string>} The array of classes.
+ */
 TracExtension.parseClasses = function(s) {
   return s.split(/\s+/);
 };
 
+
+/**
+ * Checks to see if an element has an attribute.
+ *
+ * @param {Object} n The element (node) of the DOM to inspect.
+ * @param {string} c The class we are looking for.
+ * @return {boolean} Whether the node {@code n} has the class {@code c}.
+ */
 TracExtension.hasClass = function(n, c) {
   var classes = TracExtension.parseClasses(n.className);
   for (var i = 0; i < classes.length; i++) {
@@ -13,6 +29,7 @@ TracExtension.hasClass = function(n, c) {
   }
   return false;
 };
+
 
 TracExtension.findFirstLink = function(p) {
   var links = document.getElementsByTagName('link');

@@ -189,8 +189,31 @@ TracExtension.pageTypes = [
       var p = TracExtension.createButtonPanel(buttons);
       var toc = TracExtension.findTOC();
       if (toc) {
-        toc.parentNode.removeChild(toc);
-        p.appendChild(toc);
+          toc.parentNode.removeChild(toc);
+          // p.appendChild(toc);
+          // add 'toc collapse' button:
+          var tocWrapper = document.createElement('div');
+          tocWrapper.id = 'trac-extension-toc-wrapper';
+          tocWrapper.appendChild(toc);
+          tocWrapper.style.position = 'fixed';
+
+          var tocShowing = true;
+          var theButton = document.createElement('button');
+          var txtNode = document.createTextNode('-');
+          theButton.appendChild(txtNode);
+          theButton.onclick = function() {
+              if (tocShowing){
+                  tocWrapper.removeChild(toc);
+                  txtNode.value = '+';
+              } else {
+                  tocWrapper.appendChild(toc);
+                  txtNode.value = '-';
+              }
+              tocShowing = ! tocShowing;
+          };
+          buttonSpan = document.getElementById('trac-extension-button-panel');
+          buttonSpan.appendChild(theButton);
+          p.appendChild(tocWrapper);
       }
     }
   },

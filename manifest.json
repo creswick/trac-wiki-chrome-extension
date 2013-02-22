@@ -1,18 +1,32 @@
 {
-    "name": "Trac Wiki Edit Button",
-    "version": "0.4",
-    "description": "Add an edit action for Trac wiki pages to the URL bar",
-    "page_action": {
-        "default_icon": "trac_icon_16x16.png",
-        "default_title": "Show Trac Wiki Controls"
-    },
-    "background_page" : "background.html",
-    "permissions": ["tabs"],
-    "content_scripts": [
-        {
-            "matches": ["http://*/*","https://*/*"],
-            "js": ["contentscript.js"]
-        }
-    ],
-    "options_page":"options.html"
+  "manifest_version": 2,
+
+  "name": "Trac Wiki Edit Button",
+  "version": "0.4.1",
+  "description": "Add an edit action for Trac wiki pages to the URL bar",
+
+  "icons": {
+    "16": "trac_icon_16x16.png",
+    "48": "trac_icon_48x48.png"
+  },
+
+  "page_action": {
+    "default_icon": "trac_icon_16x16.png",
+    "default_title": "Show Trac Wiki Controls"
+  },
+
+  "background" : {
+    "persistent": true,
+    "page": "background.html"
+  },
+
+  "permissions": ["tabs"],
+
+  "content_scripts": [
+    {
+      "matches": ["http://*/*","https://*/*"],
+      "js": ["contentscript.js"]
+    }
+  ],
+  "options_page":"options.html"
 }

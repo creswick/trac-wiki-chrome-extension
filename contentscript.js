@@ -71,7 +71,7 @@ TracExtension.isWikiEditPage = function() {
 };
 
 TracExtension.setNavDisplay = function(d) {
-  var ids = ['topbar', 'mainnav', 'banner'];
+  var ids = ['topbar', 'banner'];
   for (var i = 0; i < ids.length; i++) {
     var elt = document.getElementById(ids[i]);
     if (elt) {
@@ -124,7 +124,8 @@ TracExtension.createButtonPanel = function(buttons) {
   }
   var sty = container.style;
   sty.position = 'fixed';
-  sty.right = '10px';
+//  sty.right = '10px';
+  sty.right = '0px';
   sty.top = '0';
   sty.padding = '2px;';
   sty.border = '1px solid #ccc';

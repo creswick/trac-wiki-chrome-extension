@@ -2,8 +2,10 @@
   "manifest_version": 2,
 
   "name": "Trac Wiki Edit Button",
-  "version": "0.4.1",
-  "description": "Add an edit action for Trac wiki pages to the URL bar",
+  "version": "0.4.3",
+  "description": "Adds an edit action for Trac wiki pages to the URL bar.  "
+    + "This was initially created by Josh Hoyt (https://github.com/j3h).  "
+    + "The current release is based on the source at: https://github.com/creswick/trac-wiki-chrome-extension ",
 
   "icons": {
     "16": "trac_icon_16x16.png",
@@ -28,5 +30,18 @@
       "js": ["contentscript.js"]
     }
   ],
-  "options_page":"options.html"
+  "options_page":"options.html",
+
+  "web_accessible_resources": [
+    "trac_icon_16x16.png",
+    "trac_icon_48x48.png",
+    "cancel.png",
+    "page_save.png",
+    "page_white_edit.png",
+    "page_white_magnify.png",
+    "page_white.png",
+    "trac_icon_16x16.png",
+    "trac_icon_48x48.png",
+    "Trac_icon.png"
+  ]
 }

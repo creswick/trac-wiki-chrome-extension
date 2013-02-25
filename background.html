@@ -2,23 +2,6 @@
 <html>
   <head>
     <script type="text/javascript" src="common.js"></script>
-    <script>
-      chrome.extension.onRequest.addListener(
-          function (request, sender, sendResponse) {
-              switch (request) {
-              case 'reload':
-                  TracExtension.loadState();
-                  sendResponse(TracExtension.globalState);
-                  break;
-              default:
-                  chrome.pageAction.show(sender.tab.id);
-                  sendResponse(TracExtension.currentState());
-              }
-          }
-      );
-      chrome.pageAction.onClicked.addListener(function(t) {
-          TracExtension.togglePanel();
-      });
-    </script>
+    <script type="text/javascript" src="background.js"></script>
   </head>
 </html>

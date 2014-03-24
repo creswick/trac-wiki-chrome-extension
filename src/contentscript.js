@@ -93,7 +93,7 @@ TracExtension.createButtonPanel = function(buttons) {
   container.appendChild(buttonDiv);
   var startLink = document.createElement('a');
   var tracIcon = document.createElement('img');
-  tracIcon.src = chrome.extension.getURL('trac_icon_16x16.png');
+  tracIcon.src = chrome.extension.getURL('icons/trac_icon_16x16.png');
   tracIcon.style.paddingRight = '0.25em';
   tracIcon.style.verticalAlign = 'middle';
   startLink.appendChild(tracIcon);
@@ -176,14 +176,14 @@ TracExtension.pageTypes = [
       var buttons = [
         { action: TracExtension.goToEditPage,
           label: 'Edit',
-          icon: 'page_white_edit.png'
+          icon: 'icons/page_white_edit.png'
         }
       ];
       if (document.location.href.match(/\bversion=\d/)) {
         buttons.push(
             { action: TracExtension.goToViewPage,
               label: 'Current Version',
-              icon: 'page_white.png'
+              icon: 'icons/page_white.png'
             }
         );
       }
@@ -231,9 +231,9 @@ TracExtension.pageTypes = [
                        };
       };
       TracExtension.createButtonPanel([
-        b('save', 'Save', 'page_save.png'),
-        b('preview', 'Preview', 'page_white_magnify.png'),
-        b('cancel', 'Cancel', 'cancel.png')
+        b('save', 'Save', 'icons/page_save.png'),
+        b('preview', 'Preview', 'icons/page_white_magnify.png'),
+        b('cancel', 'Cancel', 'icons/cancel.png')
       ]);
     }
   }
